@@ -91,7 +91,7 @@ public class UserDaoJDBCImpl implements UserDao {
         try {
             stmt = con.createStatement();
             stmt.executeUpdate("TRUNCATE TABLE Users");
-//            System.out.println("Таблица очищена");
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
