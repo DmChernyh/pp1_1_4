@@ -32,6 +32,29 @@ public class User {
         return name + " " + lastName + " " + age;
     }
 
+    @Override
+    public int hashCode() {
+        return (int) (1 + 31 * getId());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null)
+        {
+            return false;
+        }
+        if (obj == this)
+        {
+            return true;
+        }
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        User u = (User) obj;
+        return (this.getId() == u.getId());
+    }
+
     public Long getId() {
         return id;
     }

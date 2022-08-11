@@ -12,7 +12,7 @@ import java.sql.Statement;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
-        // реализуйте алгоритм здесь
+
         UserDaoJDBCImpl userDaoJDBCImpl = new UserDaoJDBCImpl();
         userDaoJDBCImpl.createUsersTable();
         userDaoJDBCImpl.saveUser("John", "Biggy", (byte)22);
