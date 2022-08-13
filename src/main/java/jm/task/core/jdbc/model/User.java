@@ -28,33 +28,6 @@ public class User {
         this.age = age;
     }
 
-    public String toString() {
-        return name + " " + lastName + " " + age;
-    }
-
-    @Override
-    public int hashCode() {
-        return (int) (1 + 31 * getId());
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if(obj == null)
-        {
-            return false;
-        }
-        if (obj == this)
-        {
-            return true;
-        }
-        if (getClass() != obj.getClass())
-        {
-            return false;
-        }
-        User u = (User) obj;
-        return (this.getId() == u.getId());
-    }
-
     public Long getId() {
         return id;
     }
@@ -86,4 +59,33 @@ public class User {
     public void setAge(Byte age) {
         this.age = age;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null)
+        {
+            return false;
+        }
+        if (obj == this)
+        {
+            return true;
+        }
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        User u = (User) obj;
+        return (this.getId() == u.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (1 + 31 * getId());
+    }
+
+    @Override
+    public String toString() {
+        return name + " " + lastName + " " + age;
+    }
+
 }
