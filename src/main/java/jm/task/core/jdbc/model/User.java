@@ -62,16 +62,13 @@ public class User {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == null)
-        {
+        if (obj == null) {
             return false;
         }
-        if (obj == this)
-        {
+        if (obj == this) {
             return true;
         }
-        if (getClass() != obj.getClass())
-        {
+        if (getClass() != obj.getClass()) {
             return false;
         }
         User u = (User) obj;
