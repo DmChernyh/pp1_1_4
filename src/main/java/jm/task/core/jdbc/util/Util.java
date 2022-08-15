@@ -5,26 +5,40 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
+import org.hibernate.service.ServiceRegistry;
 
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 public class Util {
-    public static SessionFactory getSessionFactory () {
-        StandardServiceRegistryBuilder standardServiceRegistryBuilder = new StandardServiceRegistryBuilder();
-        Map<String,String> settings = new HashMap<>();
-        settings.put(Environment.URL, "jdbc:MySQL://localhost/test");
-        settings.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
-        settings.put(Environment.USER, "root");
-        settings.put(Environment.PASS, "1234");
-        standardServiceRegistryBuilder.applySettings(settings);
-        StandardServiceRegistry standardServiceRegistry = standardServiceRegistryBuilder.build();
-        MetadataSources metadataSources = new MetadataSources(standardServiceRegistry).addAnnotatedClass(User.class);
-        SessionFactory sessionFactory = metadataSources.buildMetadata().buildSessionFactory();
+    private static SessionFactory sessionFactory;
+    public static SessionFactory getSessionFactory() {
+            try {
+                Configuration configuration = new Configuration();
+                Properties settings = new Properties();
+                settings.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
+                settings.put(Environment.URL, "jdbc:mysql://localhost:3306/test");
+                settings.put(Environment.USER, "root");
+                settings.put(Environment.PASS, "1234");
+
+                configuration.setProperties(settings);
+
+                configuration.addAnnotatedClass(User.class);
+
+                ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
+                        .applySettings(configuration.getProperties()).build();
+
+                sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         return sessionFactory;
     }
+
 
     public static Connection connect() {
         Connection con = null;
